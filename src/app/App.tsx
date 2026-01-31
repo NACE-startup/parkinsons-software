@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import ScrollToTop from "@/app/components/ScrollToTop";
 
 // Onboarding
 import Welcome from "@/app/screens/Welcome";
@@ -25,6 +26,7 @@ export default function App() {
         v7_relativeSplatPath: true,
       }}
     >
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Welcome />} />
         <Route path="/patient-onboarding" element={<PatientOnboarding />} />

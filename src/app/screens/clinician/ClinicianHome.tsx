@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { motion } from "motion/react";
 import { useNavigate } from "react-router-dom";
-import { Search, TrendingUp, TrendingDown, Minus, ChevronLeft } from "lucide-react";
+import { Search, TrendingUp, TrendingDown, Minus, ChevronLeft, LogOut } from "lucide-react";
 import { fadeIn, scaleButton } from "@/app/utils/motion";
 import { mockClinicianPatients } from "@/app/utils/data-store";
+import { logout } from "@/app/utils/auth";
 
 type FilterType = "all" | "high-risk" | "new" | "worsening";
 
@@ -11,6 +12,11 @@ export default function ClinicianHome() {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [filter, setFilter] = useState<FilterType>("all");
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
 
   const filteredPatients = mockClinicianPatients.filter((patient) => {
     // Search filter
@@ -66,16 +72,25 @@ export default function ClinicianHome() {
       <div className="max-w-[390px] mx-auto px-5 pt-12 pb-8">
         {/* Header */}
         <motion.div {...fadeIn} className="mb-8">
-          <div className="flex items-center gap-3 mb-6">
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => navigate("/")}
+                className="w-10 h-10 rounded-full flex items-center justify-center active:bg-[var(--surface-2)] transition-colors"
+              >
+                <ChevronLeft className="w-6 h-6 text-[var(--text-1)]" />
+              </button>
+              <h1 className="text-[28px] leading-[36px] font-semibold text-[var(--text-1)]">
+                Patients
+              </h1>
+            </div>
             <button
-              onClick={() => navigate("/")}
-              className="w-10 h-10 rounded-full flex items-center justify-center active:bg-[var(--surface-2)] transition-colors"
+              onClick={handleLogout}
+              className="flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--surface-1)] border border-[var(--border-1)] text-[var(--text-1)] text-[14px] font-medium active:bg-[var(--danger-bg)] active:text-[var(--danger)] active:border-[var(--danger)]/20 transition-all"
             >
-              <ChevronLeft className="w-6 h-6 text-[var(--text-1)]" />
+              <LogOut className="w-4 h-4" />
+              <span>Log Out</span>
             </button>
-            <h1 className="text-[28px] leading-[36px] font-semibold text-[var(--text-1)]">
-              Patients
-            </h1>
           </div>
 
           {/* Search bar */}

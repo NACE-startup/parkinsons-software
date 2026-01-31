@@ -70,7 +70,7 @@ export default function TrackingScreen() {
     <div className="min-h-screen bg-[var(--bg-0)] flex flex-col">
       <div className="max-w-[390px] mx-auto w-full px-5 pt-12 pb-8 flex-1 flex flex-col">
         {/* Header */}
-        <motion.div {...fadeIn} className="mb-8">
+        <motion.div {...fadeIn} className="mb-8 relative z-10">
           <h1 className="text-[28px] leading-[36px] font-semibold text-[var(--text-1)] mb-2">
             Tracking
           </h1>
@@ -116,12 +116,12 @@ export default function TrackingScreen() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.1, duration: 0.4 }}
-          className="flex-1 flex flex-col items-center justify-center -mt-12"
+          className="flex-1 flex flex-col items-center justify-center"
         >
           {/* Animated waveform/pulse */}
-          <div className="relative mb-8">
+          <div className="relative mb-8 flex items-center justify-center" style={{ width: '200px', height: '200px' }}>
             <motion.div
-              className="w-32 h-32 rounded-full bg-gradient-to-br from-[var(--accent-1)] to-[var(--accent-hover)] flex items-center justify-center shadow-[var(--shadow-card)]"
+              className="w-32 h-32 rounded-full bg-gradient-to-br from-[var(--accent-1)] to-[var(--accent-hover)] flex items-center justify-center shadow-[var(--shadow-card)] z-10"
               animate={{
                 scale: isPaused ? 1 : [1, 1.05, 1],
               }}
@@ -138,7 +138,7 @@ export default function TrackingScreen() {
             {!isPaused && (
               <>
                 <motion.div
-                  className="absolute inset-0 rounded-full border-2 border-[var(--accent-1)]"
+                  className="absolute w-32 h-32 rounded-full border-2 border-[var(--accent-1)]"
                   animate={{
                     scale: [1, 1.6, 1.6],
                     opacity: [0.6, 0, 0],
@@ -150,7 +150,7 @@ export default function TrackingScreen() {
                   }}
                 />
                 <motion.div
-                  className="absolute inset-0 rounded-full border-2 border-[var(--accent-1)]"
+                  className="absolute w-32 h-32 rounded-full border-2 border-[var(--accent-1)]"
                   animate={{
                     scale: [1, 1.6, 1.6],
                     opacity: [0.6, 0, 0],

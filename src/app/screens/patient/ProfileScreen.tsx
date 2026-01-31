@@ -1,12 +1,21 @@
 import { mockPatientProfile, getPairedDevice, disconnectDevice, Device } from "@/app/utils/data-store";
+import { logout } from "@/app/utils/auth";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import qrCodeImage from "figma:asset/c96af0dd64ed6795d6069e7c9a4516961b320c6e.png";
+import qrCodeImage from "@/assets/c96af0dd64ed6795d6069e7c9a4516961b320c6e.png";
+import { motion } from "motion/react";
+import { User, Share2, Shield, Battery, Bluetooth, HelpCircle, ChevronRight, LogOut } from "lucide-react";
+import { fadeIn } from "@/app/utils/motion";
 
 export default function ProfileScreen() {
   const navigate = useNavigate();
   const [sharingEnabled, setSharingEnabled] = useState(mockPatientProfile.sharingEnabled);
   const [pairedDevice, setPairedDevice] = useState<Device | null>(null);
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
 
   useEffect(() => {
     const device = getPairedDevice();
@@ -253,6 +262,22 @@ export default function ProfileScreen() {
           <button className="w-full h-[52px] rounded-[16px] bg-[var(--surface-1)] text-[var(--text-1)] flex items-center justify-between px-4 shadow-[var(--shadow-sm)] active:bg-[var(--surface-2)] transition-colors">
             <span className="text-[14px] font-medium">Accessibility settings</span>
             <ChevronRight className="w-5 h-5 text-[var(--text-2)]" />
+          </button>
+        </motion.div>
+
+        {/* Logout Button */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, duration: 0.3 }}
+          className="mt-6"
+        >
+          <button
+            onClick={handleLogout}
+            className="w-full h-[52px] rounded-[16px] bg-[var(--danger-bg)] text-[var(--danger)] border border-[var(--danger)]/20 flex items-center justify-center gap-3 font-medium text-[14px] active:bg-[var(--danger)] active:text-white transition-all"
+          >
+            <LogOut className="w-5 h-5" />
+            Log Out
           </button>
         </motion.div>
 
